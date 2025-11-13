@@ -5,7 +5,11 @@ SELECT
     NVL( a.host_name, 'Anonymous') AS host_name,
     a.is_superhost,
     a.created_at,
-    a.updated_at
+    a.updated_at,
+    CASE 
+    WHEN a.is_superhost='t' THEN 'Luxirious'
+    ELSE 'Standard'
+    END AS HOST_TYPE
 FROM
     {{ ref('silver_hosts') }} a inner join  {{ ref('hosts_snapshot') }} b
     on a.host_id = b.host_id
